@@ -4,3 +4,9 @@ This is a frontend that is extremely simplified. It just makes a few AJAX calls 
 
 - Dockerized
 - Supports releasing docker images on docker hub or any other registry
+
+## Release
+
+Copy `bin/release.env.example` to `bin/release.env`
+
+`bash bin/release.sh`
