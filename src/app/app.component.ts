@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { KittensService } from './kittens.service';
+import { ActivatedRoute } from '@angular/router';
 import {
   FormGroup,
   FormBuilder,
@@ -18,7 +19,8 @@ export class AppComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private kittensService: KittensService
+    private kittensService: KittensService,
+    private route: ActivatedRoute
   ) {
     this.addKittenForm = this.formBuilder.group({
       name: new FormControl('', [Validators.required]),
@@ -27,11 +29,13 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.fetchKittens();
+    this.route.queryParams.subscribe((params) => {
+      this.fetchKittens(params.apiUrl);
+    });
   }
 
-  fetchKittens(): void {
-    this.kittensService.getKittens().subscribe(
+  fetchKittens(apiUrl: string = null): void {
+    this.kittensService.getKittens(apiUrl).subscribe(
       (data) => {
         this.kittens = data.kittens;
       },

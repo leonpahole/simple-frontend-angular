@@ -9,11 +9,18 @@ import { Observable } from 'rxjs';
 export class KittensService {
   constructor(private http: HttpClient) {}
 
-  getKittens(): Observable<any> {
-    return this.http.get(`${environment.apiUrl}`);
+  getKittens(overrideUrl: string = null): Observable<any> {
+    return this.http.get(`${overrideUrl || environment.apiUrl}`);
   }
 
-  createKitten(name: string, age: number): Observable<any> {
-    return this.http.post(`${environment.apiUrl}`, { name, age });
+  createKitten(
+    name: string,
+    age: number,
+    overrideUrl: string = null
+  ): Observable<any> {
+    return this.http.post(`${overrideUrl || environment.apiUrl}`, {
+      name,
+      age,
+    });
   }
 }
